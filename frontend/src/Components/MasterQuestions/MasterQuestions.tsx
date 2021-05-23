@@ -18,6 +18,9 @@ import { FaAngleRight } from "react-icons/fa";
 
 import { levenshteinEditDistance } from 'levenshtein-edit-distance';
 
+// Axios Import
+import axiosInstance from "../../Core/Axios";
+
 function MasterQuestions(props: any) {
 
     const {
@@ -33,43 +36,30 @@ function MasterQuestions(props: any) {
 
 
     const [index, setIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [correctAnswer, setCorrectAnswer] = useState(false);
     const [inputValue, setInputValue] = useState('');
-    const [questionsData, setQuestionsData] = useState([
-        {
-            url: 'https://www.filmcompanion.in/wp-content/uploads/2020/03/film-comapnion-hera-pheri-inline-image-1.jpg',
-            text: 'Question #1',
-            code: 1,
-            time: 0,
-            isCompleted: false,
-            answer: 'Hera Pheri'
-
-        },
-        {
-            url: 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/coolie-no-1/coolie-no-1-37.jpg',
-            text: 'Question #2',
-            code: 2,
-            time: 0,
-            isCompleted: false,
-            answer: 'Judwa 2'
-        },
-        {
-            url: 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/sooryavanshi/sooryavanshi-7.jpg',
-            text: 'Question #3',
-            code: 3,
-            time: 0,
-            isCompleted: false,
-            answer: 'Sooryavansi'
-        }
-    ]);
+    const [questionsData, setQuestionsData] = useState([]);
 
     useEffect(() => {
-        console.log('Passed Quiz Id ' + props.quizId);
+        getQuizQuestions(props.quizId);
     }, [])
 
     useEffect(() => {
         console.log(questionsData);
     }, [questionsData])
+
+    const getQuizQuestions = (quizId) => {
+        axiosInstance
+            .post("/quiz/getQuizQuestions", { quiz_id: 'GZ-TBQZ2105231943342' })
+            .then(function (response) {
+                setQuestionsData([...response.data.data]);
+                setLoading(false);
+            })
+            .catch(function (error) {
+                alert("Profile not Public");
+            });
+    }
 
 
 
@@ -89,11 +79,11 @@ function MasterQuestions(props: any) {
         if (completed) {
             const updateQData = questionsData;
             updateQData[previousIndex]['time'] += time - 2;
-            updateQData[previousIndex]['isCompleted'] = true;
+            updateQData[previousIndex]['is_completed'] = true;
             setQuestionsData([...updateQData]);
         }
 
-        if (!questionsData[previousIndex]['isCompleted']) {
+        if (!questionsData[previousIndex]['is_completed']) {
             const updateQData = questionsData;
             updateQData[previousIndex]['time'] += time;
             setQuestionsData([...updateQData]);
@@ -114,61 +104,68 @@ function MasterQuestions(props: any) {
                 }, 3000);
             }
         }
-
     }
 
 
 
     return (
         <>
-            <Row>
-                <Col xs={12} sm={12} md={6}>
-                    <Card className='mt-2'>
-                        <Card.Img className='img-fluid img-thumbnail question-card ' variant="top" src={questionsData[index].url} />
-                        <Card.Body>
-                            <Row>
-                                <Col>
-                                    <div>
-                                        <InputGroup size="sm">
-                                            <FormControl disabled={ questionsData[index].isCompleted } value={inputValue} onChange={event => handleInputChange(event.target.value)} aria-describedby="inputGroup-sizing-sm" />
-                                        </InputGroup>
-                                    </div>
-                                    {/* <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span> */}
-                                </Col>
-                            </Row>
-                            <Row className='mt-2'>
-                                <Col>
-                                    <Button variant="primary" disabled={index === 0} onClick={() => { handleQuestionChange(false) }} block><FaAngleLeft /></Button>
-                                </Col>
-                                <Col>
-                                    <Button variant="danger" disabled={index === 0} onClick={() => { handleQuestionChange(false) }} block>Give up</Button>
-                                </Col>
-                                <Col>
-                                    <Button variant="primary" disabled={index === questionsData.length - 1} onClick={() => { handleQuestionChange(true) }} block><FaAngleRight /></Button>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
             {
-                !questionsData[index].isCompleted && correctAnswer && (
-                    <Row className='mt-2'>
-                        <Col>
-                            <Alert variant='success'> Correct Answer : <strong>{ questionsData[index]['answer'] }</strong> </Alert>
-                        </Col>
-                    </Row>
+                !loading && (
+                    <div>
+                        <Row className="justify-content-md-center">
+                            <Col xs={12} sm={12} md={6}>
+                                <Card className='mt-2'>
+                                    <Card.Img className='img-fluid img-thumbnail question-card ' variant="top" src={questionsData[index].image} />
+                                    <Card.Body>
+                                        <Row>
+                                            <Col>
+                                                <div>
+                                                    <InputGroup size="sm">
+                                                        <FormControl disabled={questionsData[index].is_completed} value={inputValue} onChange={event => handleInputChange(event.target.value)} aria-describedby="inputGroup-sizing-sm" />
+                                                    </InputGroup>
+                                                </div>
+                                                {/* <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span> */}
+                                            </Col>
+                                        </Row>
+                                        <Row className='mt-2'>
+                                            <Col>
+                                                <Button variant="primary" disabled={index === 0} onClick={() => { handleQuestionChange(false) }} block><FaAngleLeft /></Button>
+                                            </Col>
+                                            <Col>
+                                                <Button variant="danger" disabled={index === 0} onClick={() => { handleQuestionChange(false) }} block>Give up</Button>
+                                            </Col>
+                                            <Col>
+                                                <Button variant="primary" disabled={index === questionsData.length - 1} onClick={() => { handleQuestionChange(true) }} block><FaAngleRight /></Button>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                        {
+                            !questionsData[index].is_completed && correctAnswer && (
+                                <Row className='mt-2 text-center justify-content-md-center'>
+                                    <Col xs={12} sm={12} md={6}>
+                                        <Alert variant='success'> Correct Answer : <strong>{questionsData[index]['answer']}</strong> </Alert>
+                                    </Col>
+                                </Row>
+                            )
+                        }
+                        {
+                            questionsData[index].is_completed && (
+                                <Row className='mt-2 text-center justify-content-md-center'>
+                                    <Col xs={12} sm={12} md={6}>
+                                        <Alert variant='success'><strong>{questionsData[index]['answer']}</strong> | Time: <strong>{questionsData[index]['time']}</strong>s </Alert>
+                                    </Col>
+                                </Row>
+                            )
+                        }
+
+                    </div>
                 )
             }
-            {
-                questionsData[index].isCompleted && (
-                    <Row className='mt-2 text-center'>
-                        <Col>
-                            <Alert variant='success'><strong>{ questionsData[index]['answer'] }</strong> | Time: <strong>{ questionsData[index]['time'] }</strong>s </Alert>
-                        </Col>
-                    </Row>
-                )
-            }
+
         </>
     )
 }

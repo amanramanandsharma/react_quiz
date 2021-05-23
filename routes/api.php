@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('socialLogin', 'AuthController@socialLogin');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('data-generator/populateQuizAndQuestions', 'DataGeneratorController@populateQuizAndQuestions');
+
+Route::group(['middleware' => ['auth:api']], function(){
+    Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
 });

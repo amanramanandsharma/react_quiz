@@ -22,11 +22,11 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Container fluid>
+      <Container>
         {
           !startQuiz && (
             <div>
-              <Row >
+              <Row className= 'mt-2'>
                 <Col>
                   <Jumbotron>
                     <h1>Quiz</h1>

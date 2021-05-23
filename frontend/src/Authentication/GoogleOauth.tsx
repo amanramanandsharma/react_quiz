@@ -3,6 +3,7 @@ import './GoogleOauth.scss';
 
 // Bootstap Imports
 import Button from 'react-bootstrap/Button';
+import Image from "react-bootstrap/Image";
 
 //Icons Import
 import { FaGoogle } from "react-icons/fa";
@@ -77,6 +78,14 @@ function GoogleOauth() {
             {
                 isLoggedIn && (
                     <span>
+                        <span className='mr-3'>
+                        <Image
+                            className="user-image pointer"
+                            src={userData["image"]}
+                            roundedCircle
+                            />
+                        </span>
+                        
                         { userData['name']}
                         <span className='ml-3'>
                             <GoogleLogout

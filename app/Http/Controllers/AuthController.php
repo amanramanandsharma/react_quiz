@@ -61,9 +61,10 @@ class AuthController extends Controller{
             return $account->user;
         } else {
             $user = User::whereEmail($providerUser->getEmail())->first();
- 
+            
             if (! $user) {
                 $user = User::create([
+                    'identifier' => $this->generateUniqueIdentifier('users'),
                     'email' => $providerUser->getEmail(),
                     'name'  => $providerUser->getName(),
                     'image' => $providerUser->getAvatar(),
