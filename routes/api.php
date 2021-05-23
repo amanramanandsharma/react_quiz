@@ -19,5 +19,8 @@ Route::post('socialLogin', 'AuthController@socialLogin');
 Route::get('data-generator/populateQuizAndQuestions', 'DataGeneratorController@populateQuizAndQuestions');
 
 Route::group(['middleware' => ['auth:api']], function(){
-    Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
+
+    // ======================== Q U I Z =================================================================
+        Route::get('quiz/getQuizList', 'QuizController@getQuizList');
+        Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
 });

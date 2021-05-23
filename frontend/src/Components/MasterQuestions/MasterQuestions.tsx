@@ -43,11 +43,7 @@ function MasterQuestions(props: any) {
 
     useEffect(() => {
         getQuizQuestions(props.quizId);
-    }, [])
-
-    useEffect(() => {
-        console.log(questionsData);
-    }, [questionsData])
+    }, []);
 
     const getQuizQuestions = (quizId) => {
         axiosInstance
@@ -57,7 +53,7 @@ function MasterQuestions(props: any) {
                 setLoading(false);
             })
             .catch(function (error) {
-                alert("Profile not Public");
+                 alert("API Error - Quiz List");
             });
     }
 
