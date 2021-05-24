@@ -54,7 +54,7 @@ function EachQuestion(props) {
 
     const getQuizQuestions = (quizId) => {
         axiosInstance
-            .post('/quiz/getQuizQuestions', { quiz_id: 'GZ-TBQZ2105231943342' })
+            .post('/quiz/getQuizQuestions', { quiz_id: props.quizId })
             .then(function (response) {
                 setQuestionsData([...response.data.data]);
                 setLoading(false);

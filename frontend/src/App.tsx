@@ -17,7 +17,7 @@ import HighScores from './Components/HighScores/HighScores';
 
 function App() {
 
-  const [quizId, setQuizId] = useState(0);
+  const [quizId, setQuizId] = useState('GZ-TBQZ2105242021591');
   const [startQuiz, setStartQuiz] = useState(false);
 
   return (

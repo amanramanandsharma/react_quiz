@@ -38,5 +38,27 @@ class QuizController extends Controller{
 
         return response()->json(['data' => $data], 200);
     }
+  
+    public function submitScore(Request $request){
+
+        $quiz_id = DB::table('tbl_quiz')->where('identifier',$request->quiz_id)->value('id');
+
+        foreach ($request->data as $each_response) {
+            $question_id = DB::table('tbl_quiz_questions')->where('identifier',$each_response['identifier'])->value('id');
+
+            DB::table('tbl_quiz_responses')->insert([
+                'identifier' => $this->generateUniqueIdentifier('tbl_quiz_responses'),
+                'quiz_question_id' => $question_id,
+                'time' => $each_response['time'],
+                'is_completed' => $each_response['is_completed'],
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
+                'created_at' => Carbon::now("Asia/Kolkata"),
+                'updated_at' => Carbon::now("Asia/Kolkata")
+            ]);
+        } 
+
+        return response()->json(['data' => true], 200);
+    }
  
 }

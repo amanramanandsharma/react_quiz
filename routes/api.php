@@ -24,4 +24,5 @@ Route::group(['middleware' => ['auth:api']], function(){
     // ======================== Q U I Z =================================================================
         
         Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
+        Route::post('quiz/submitScore', 'QuizController@submitScore');
 });
