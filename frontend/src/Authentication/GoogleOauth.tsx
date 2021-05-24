@@ -12,9 +12,8 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { authenticationService } from '../Authentication/Authentication.Service';
 
-const clientId =
-    '745534850555-m40vla96mqohf4nakl9gebuklm6odels.apps.googleusercontent.com';
-
+//Environment Variales
+import { config } from '../environment';
 
 function GoogleOauth() {
 
@@ -60,7 +59,7 @@ function GoogleOauth() {
             {
                 !isLoggedIn && (
                     <GoogleLogin
-                        clientId={clientId}
+                        clientId={config.clientId}
                         buttonText="Login"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
@@ -89,7 +88,7 @@ function GoogleOauth() {
                         { userData['name']}
                         <span className='ml-3'>
                             <GoogleLogout
-                                clientId={clientId}
+                                clientId={config.clientId}
                                 buttonText="Login"
                                 onLogoutSuccess={logout}
                                 render={(renderProps) => (

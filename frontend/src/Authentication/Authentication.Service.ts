@@ -1,6 +1,8 @@
 import { BehaviorSubject } from "rxjs";
 import axiosInstance from "../Core/Axios";
-import * as config from "../Config/Config";
+
+//Environment Variales
+import { config } from '../environment';
 
 const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem(config.LS) || "{}")

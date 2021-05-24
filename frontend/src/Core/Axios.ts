@@ -1,6 +1,8 @@
 import axios from "axios";
-import * as config from "../Config/Config";
 import { authenticationService } from "../Authentication/Authentication.Service";
+
+//Environment Variales
+import { config } from '../environment';
 
 const axiosInstance = () => {
     const defaultOptions = {
