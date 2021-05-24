@@ -32,14 +32,17 @@ function QuizList() {
             {
                 !loading && (
                     <div>
-                        <Card border="secondary">
-                            <Card.Header className="text-center"><strong>Quizzes</strong></Card.Header>
+                        <Card
+                            bg='info'
+                            text='white'
+                            className="mb-2"
+                        >
                             <Card.Body>
-                                <ListGroup variant="flush">
-                                    {quizData.map((element, index) => (
-                                        <ListGroup.Item key={index}>{element.title} | { element.update_date}</ListGroup.Item>
+                                <Card.Title>Quizzes List</Card.Title>
+                                <hr></hr>
+                                {quizData.map((element, index) => (
+                                        <div key={index}><span>{element.title} | { element.update_date}</span><br></br></div>
                                     ))}
-                                </ListGroup>
                             </Card.Body>
                         </Card>
                     </div>

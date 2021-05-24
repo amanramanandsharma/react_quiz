@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 import Header from './Layouts/Header/Header';
 import Footer from './Layouts/Footer/Footer';
@@ -26,14 +27,23 @@ function App() {
         {
           !startQuiz && (
             <div>
-              <Row className= 'mt-2'>
+              <Row className='mt-2'>
                 <Col>
-                  <Jumbotron>
-                    <h1>Quiz</h1>
-                    <p>
-                      <Button variant="primary" onClick={() => { setStartQuiz(true) }} block>Start !!</Button>
-                    </p>
-                  </Jumbotron>
+                  <Card
+                    bg='secondary'
+                    text='white'
+                    className="mb-2"
+                  >
+                    <Card.Body>
+                      <Card.Title>Weekly Quiz</Card.Title>
+                      <Card.Text>
+                      John Doe | 12th March 2021
+                      <span className='btn-right'>
+                        <Button variant="light" onClick={() => { setStartQuiz(true) }}>Start !!</Button>
+                      </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </Col>
               </Row>
               <Row>

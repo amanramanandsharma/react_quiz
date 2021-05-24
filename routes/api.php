@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('socialLogin', 'AuthController@socialLogin');
+Route::get('quiz/getQuizList', 'QuizController@getQuizList');
 
 Route::get('data-generator/populateQuizAndQuestions', 'DataGeneratorController@populateQuizAndQuestions');
 
 Route::group(['middleware' => ['auth:api']], function(){
 
     // ======================== Q U I Z =================================================================
-        Route::get('quiz/getQuizList', 'QuizController@getQuizList');
+        
         Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
 });

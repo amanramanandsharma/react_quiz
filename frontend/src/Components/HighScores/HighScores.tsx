@@ -6,14 +6,18 @@ import ListGroup from 'react-bootstrap/ListGroup';
 function HighScores() {
     return (
         <div>
-            <Card border="secondary">
-                <Card.Header className="text-center"><strong>Weekly High Scores</strong></Card.Header>
+            <Card
+                bg='success'
+                text='white'
+                className="mb-2"
+            >
                 <Card.Body>
-                <ListGroup variant="flush">
-                    <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                </ListGroup>
+                    <Card.Title>Top Scorer List</Card.Title>
+                    <hr></hr>
+                            <div><span>Lorem Ipsum 1</span><br></br></div>
+                            <div><span>Lorem Ipsum 2</span><br></br></div>
+                            <div><span>Lorem Ipsum 1</span><br></br></div>
+                            <div><span>Lorem Ipsum 1</span><br></br></div>
                 </Card.Body>
             </Card>
         </div>
