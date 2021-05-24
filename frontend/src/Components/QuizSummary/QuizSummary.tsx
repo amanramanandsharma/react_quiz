@@ -21,6 +21,10 @@ function QuizSummary(props: any) {
         setTotalTime(totalTimeTaken);
     }, []);
 
+    const submitScore = () => {
+
+    }
+
     return (
 
         <div>
