@@ -20,7 +20,6 @@ function QuizSummary(props: any) {
 
     const [totalTime, setTotalTime] = useState(0);
     const [scoreSubmit, setScoreSubmit] = useState(false);
-    const [completedQuiz, setCompletedQuiz] = useState(false);
 
     useEffect(() => {
         const totalTimeTaken = props.data.reduce((acc, element) => acc + element.time, 0);
@@ -29,12 +28,9 @@ function QuizSummary(props: any) {
     }, []);
 
     const submitScore = () => {
-        if (props.data.some(e => e.is_completed === true)) {
-            setCompletedQuiz(true);
-        }
 
         axiosInstance
-        .post('/quiz/submitScore', { quiz_id: props.quizId, data: props.data, completed:completedQuiz })
+        .post('/quiz/submitScore', { quiz_id: props.quizId, data: props.data })
         .then(function (response) {
             setScoreSubmit(true);
         })

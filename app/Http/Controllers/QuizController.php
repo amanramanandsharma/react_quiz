@@ -71,6 +71,8 @@ class QuizController extends Controller{
 
         $total_time = 0;
 
+        $completed = true;
+
         foreach ($request->data as $each_response) {
             $question_id = DB::table('tbl_quiz_questions')->where('identifier',$each_response['identifier'])->value('id');
 
@@ -85,6 +87,10 @@ class QuizController extends Controller{
                 'updated_at' => Carbon::now("Asia/Kolkata")
             ]);
 
+            if($each_response['is_completed'] == false){
+                    $completed = false;
+            }
+
             $total_time += $each_response['time'];
         }
 
@@ -93,7 +99,7 @@ class QuizController extends Controller{
             'quiz_id' => $quiz_id,
             'user_id' => Auth::user()->id,
             'time' => $total_time,
-            'is_completed' => $request->completed,
+            'is_completed' => $completed,
             'created_by' => Auth::user()->id,
             'updated_by' => Auth::user()->id,
             'created_at' => Carbon::now("Asia/Kolkata"),
@@ -102,7 +108,7 @@ class QuizController extends Controller{
 
         //Check if its a high Score
         $quiz_time = DB::table('tbl_quiz')->where('id',$quiz_id)->value('best_time');
-            if($quiz_time > $total_time &&  $request->completed){
+            if($quiz_time > $total_time &&  $completed){
                     DB::table('tbl_quiz')
                         ->where('id', $quiz_id)
                         ->update(['best_time' => $total_time , 'best_time_user_id' => Auth::user()->id]);

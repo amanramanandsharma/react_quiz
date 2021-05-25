@@ -69,7 +69,7 @@ function GoogleOauth() {
                         isSignedIn={true}
                         render={(renderProps) => (
                             <span><FaGoogle
-                            onClick={renderProps.onClick} /></span>
+                            onClick={renderProps.onClick} /> Login</span>
 
                         )}
                     />

@@ -53,8 +53,8 @@ function App() {
 
   return (
     <div className="App">
-      <Container fluid>
       <Header />
+      <Container fluid>
       {
         error && (
           <div className='mt-1'>
