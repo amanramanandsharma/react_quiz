@@ -40,6 +40,7 @@ function GoogleOauth() {
             authenticationService
                 .login(response.accessToken, "google")
                 .then(function (user) {
+                    window.location.reload();
                     checkLoginStatus();
                 })
                 .catch(function (error) {
@@ -51,6 +52,7 @@ function GoogleOauth() {
     const logout = () => {
         authenticationService.logout();
         checkLoginStatus();
+        window.location.reload();
     };
 
     return (

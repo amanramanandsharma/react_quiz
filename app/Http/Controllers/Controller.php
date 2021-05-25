@@ -34,6 +34,10 @@ class Controller extends BaseController
                 $prefix = 'GZ-TBQR'; /*Sygence Hospital Number*/
                 break;
 
+            case 'tbl_quiz_summary':
+                $prefix = 'GZ-TBQS'; /*Sygence Hospital Number*/
+                break;
+
             default:
                 # code...
                 break;

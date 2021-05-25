@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.scss';
 
+// Bootstrap Imports
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import Alert from 'react-bootstrap/Alert'
 
 import Header from './Layouts/Header/Header';
 import Footer from './Layouts/Footer/Footer';
@@ -15,15 +16,45 @@ import MasterQuestions from './Components/MasterQuestions/MasterQuestions';
 import QuizList from './Components/QuizList/QuizList';
 import HighScores from './Components/HighScores/HighScores';
 
+
+// Axios Import
+import axiosInstance from './Core/Axios';
+
 function App() {
 
-  const [quizId, setQuizId] = useState('GZ-TBQZ2105242021591');
+  const [latestQuiz, setlatestQuiz] = useState(null);
   const [startQuiz, setStartQuiz] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    getLatestQuiz();
+  }, []);
+
+  const getLatestQuiz = () => {
+    axiosInstance
+      .get('/quiz/getLatestQuiz')
+      .then(function (response) {
+        setlatestQuiz(response.data.data)
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log("API Error - Latest Quiz");
+        setError(true);
+      });
+  }
 
   return (
     <div className="App">
+      <Container fluid>
       <Header />
-      <Container>
+      {
+        error && (
+          <div className='mt-1'>
+            <Alert variant='danger'>Please Login To Continue</Alert>
+          </div>
+        )
+      }
         {
           !startQuiz && (
             <div>
@@ -36,12 +67,26 @@ function App() {
                   >
                     <Card.Body>
                       <Card.Title>Weekly Quiz</Card.Title>
-                      <Card.Text>
-                      John Doe | 12th March 2021
-                      <span className='btn-right'>
-                        <Button variant="light" onClick={() => { setStartQuiz(true) }}>Start !!</Button>
-                      </span>
-                      </Card.Text>
+                      {
+                          !loading && (
+                            <div>
+                            <Row>
+                                <Col>
+                                  {latestQuiz.title} | {latestQuiz.update_date}
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  Curated by - {latestQuiz.name}
+                                  <span className='btn-right'>
+                                    <Button variant="light" onClick={() => { setStartQuiz(true) }}>Start !!</Button>
+                                  </span>
+                                </Col>
+                              </Row>
+                            </div>
+                        )
+                      }
+                        
                     </Card.Body>
                   </Card>
                 </Col>
@@ -59,7 +104,7 @@ function App() {
             <div>
               <Row>
                 <Col>
-                  <MasterQuestions quizId={quizId} />
+                  <MasterQuestions quizId={latestQuiz.identifier} />
                 </Col>
               </Row>
             </div>
