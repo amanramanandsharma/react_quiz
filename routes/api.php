@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('socialLogin', 'AuthController@socialLogin');
 
 Route::get('data-generator/populateQuizAndQuestions', 'DataGeneratorController@populateQuizAndQuestions');
+Route::get('quiz/getHighScoreForQuiz', 'QuizController@getHighScoreForQuiz');
 
 Route::group(['middleware' => ['auth:api']], function(){
 
@@ -25,4 +26,5 @@ Route::group(['middleware' => ['auth:api']], function(){
         Route::get('quiz/getQuizList', 'QuizController@getQuizList');
         Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
         Route::post('quiz/submitScore', 'QuizController@submitScore');
+        
 });

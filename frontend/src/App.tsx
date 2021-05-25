@@ -23,6 +23,7 @@ import axiosInstance from './Core/Axios';
 function App() {
 
   const [latestQuiz, setlatestQuiz] = useState(null);
+  const [selectedQuizId, setSelectedQuizId] = useState(0);
   const [startQuiz, setStartQuiz] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -36,12 +37,18 @@ function App() {
       .get('/quiz/getLatestQuiz')
       .then(function (response) {
         setlatestQuiz(response.data.data)
+        setSelectedQuizId(response.data.data.identifier);
         setLoading(false);
       })
       .catch(function (error) {
         console.log("API Error - Latest Quiz");
         setError(true);
       });
+  }
+
+  const setQuizIdAndStart = (quizId) => {
+    setSelectedQuizId(quizId);
+    setStartQuiz(true)
   }
 
   return (
@@ -92,7 +99,7 @@ function App() {
                 </Col>
               </Row>
               <Row>
-                <Col xs={12} sm={12} md={6}><QuizList /></Col>
+                <Col xs={12} sm={12} md={6}><QuizList startQuiz={setQuizIdAndStart}></QuizList></Col>
                 <Col xs={12} sm={12} md={6}><HighScores /></Col>
               </Row>
             </div>
@@ -104,7 +111,7 @@ function App() {
             <div>
               <Row>
                 <Col>
-                  <MasterQuestions quizId={latestQuiz.identifier} />
+                  <MasterQuestions quizId={selectedQuizId} />
                 </Col>
               </Row>
             </div>

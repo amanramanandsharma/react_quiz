@@ -31,19 +31,21 @@ class QuizController extends Controller{
 
         $data = DB::table('tbl_quiz')
                         ->select('tbl_quiz.id','tbl_quiz.identifier','title','best_time','best_time_user_id', DB::raw('DATE_FORMAT(tbl_quiz.updated_at, "%D %b %Y") as update_date'),'users.name','users.image')
-                        ->join('users', 'tbl_quiz.user_id', 'users.id')
+                        ->join('users', 'tbl_quiz.best_time_user_id', 'users.id')
                         ->get();
 
         foreach ($data as $each_quiz) {
             $is_completed = DB::table('tbl_quiz_summary')->where('id',$each_quiz->id)->where('user_id',Auth::user()->id)->first();
-            if($is_completed ){
+            if($is_completed){
                 $each_quiz->id = $each_quiz->identifier;
                 $each_quiz->is_completed = $is_completed->is_completed;
                 $each_quiz->time = $is_completed->time;
+                $each_quiz->best_time_user_id = null;
             }else{
                 $each_quiz->id = $each_quiz->identifier;
                 $each_quiz->is_completed = false;
                 $each_quiz->time = 0;
+                $each_quiz->best_time_user_id = null;
             }
             
         }
@@ -98,7 +100,32 @@ class QuizController extends Controller{
             'updated_at' => Carbon::now("Asia/Kolkata")
         ]);
 
+        //Check if its a high Score
+        $quiz_time = DB::table('tbl_quiz')->where('id',$quiz_id)->value('best_time');
+            if($quiz_time > $total_time &&  $request->completed){
+                    DB::table('tbl_quiz')
+                        ->where('id', $quiz_id)
+                        ->update(['best_time' => $total_time , 'best_time_user_id' => Auth::user()->id]);
+            }
+
         return response()->json(['data' => true], 200);
+    }
+  
+    public function getHighScoreForQuiz(Request $request){
+
+        // $users_completed_all_quiz = [];
+
+        // $quiz_scores = DB::table('tbl_quiz')->where('deleted_at',null)->count();
+
+        // foreach ($quiz_scores as $each_top_score) {
+        //     $user_count = DB::table('tbl_quiz_summary')->groupBy('user_id')->count();
+        //     if($user_count === $quiz_scores){
+        //         array_push($users_completed_all_quiz, );
+        //     }
+        // }
+
+
+        return response()->json(['data' => 'true'], 200);
     }
  
 }

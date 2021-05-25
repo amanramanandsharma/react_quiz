@@ -14,10 +14,7 @@ function HighScores() {
                 <Card.Body>
                     <Card.Title>Top Scorer List</Card.Title>
                     <hr></hr>
-                            <div><span>Lorem Ipsum 1</span><br></br></div>
-                            <div><span>Lorem Ipsum 2</span><br></br></div>
-                            <div><span>Lorem Ipsum 1</span><br></br></div>
-                            <div><span>Lorem Ipsum 1</span><br></br></div>
+                            <div><span>Coming Soon</span><br></br></div>
                 </Card.Body>
             </Card>
         </div>

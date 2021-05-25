@@ -89,7 +89,7 @@ class DataGeneratorController extends Controller{
             'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
             'quiz_id' => $quiz_id_2,
             'title' => 'Q1',
-            'answer' => 'PPagglait',
+            'answer' => 'Pagglait',
             'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/pagglait/pagglait-20.jpg',
             'time' => 0,
             'is_completed' => 0,
@@ -133,6 +133,119 @@ class DataGeneratorController extends Controller{
             'title' => 'Q4',
             'answer' => 'Sardar Ka Grandson',
             'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2021/sardar-ka-grandson/sardar-ka-grandson-3.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+
+
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q5',
+            'answer' => 'Saina',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2018/saina/saina-18.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+                
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q6',
+            'answer' => 'The Big Bull',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/the-big-bull-an-unreal-story/the-big-bull-11.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+                        
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q7',
+            'answer' => 'Roohi',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/rooh-afza/roohi-10.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+                                
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q8',
+            'answer' => 'Dolly Kitty Aur Woh Chamakte Sitare',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2019/dolly-kitty-aur-woh-chamakte-sitare/dolly-kitty-aur-woh-chamakte-sitare-4.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+                                        
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q9',
+            'answer' => 'Indoo Ki Jawani',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/indoo-ki-jawani/indoo-ki-jawani-4.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]); 
+
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q10',
+            'answer' => 'Shakuntala Devi',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/shakuntala-devi/shakuntala-devi-18.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+        
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q11',
+            'answer' => 'Angrezi Medium',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2019/hindi-medium-2/angrezi-medium-8.jpg',
+            'time' => 0,
+            'is_completed' => 0,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'created_at' => Carbon::now("Asia/Kolkata"),
+            'updated_at' => Carbon::now("Asia/Kolkata")
+        ]);
+                
+        DB::table('tbl_quiz_questions')->insert([
+            'identifier' => $this->generateUniqueIdentifier('tbl_quiz_questions'),
+            'quiz_id' => $quiz_id_2,
+            'title' => 'Q12',
+            'answer' => 'Thappad',
+            'image' => 'https://cdn.bollywoodmdb.com/movies/largethumb/2020/thappad/thappad-12.jpg',
             'time' => 0,
             'is_completed' => 0,
             'created_by' => 1,

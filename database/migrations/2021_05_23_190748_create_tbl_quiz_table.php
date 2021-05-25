@@ -18,8 +18,8 @@ class CreateTblQuizTable extends Migration
             $table->string('identifier');
             $table->string('title');
             $table->integer('user_id');
-            $table->integer('best_time')->nullable();
-            $table->integer('best_time_user_id')->nullable();
+            $table->integer('best_time')->default(9999);
+            $table->integer('best_time_user_id')->default(1);
             $table->integer('views')->default(0);
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
