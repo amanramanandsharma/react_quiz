@@ -12,6 +12,9 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { authenticationService } from '../Authentication/Authentication.Service';
 
+// Router Imports
+import { Link } from "react-router-dom";
+
 //Environment Variales
 import { config } from '../environment';
 
@@ -68,7 +71,7 @@ function GoogleOauth() {
                         cookiePolicy={'single_host_origin'}
                         isSignedIn={true}
                         render={(renderProps) => (
-                            <span onClick={renderProps.onClick}><FaGoogle/> Login</span>
+                            <span onClick={renderProps.onClick}><FaGoogle /> Login</span>
 
                         )}
                     />
@@ -77,25 +80,26 @@ function GoogleOauth() {
 
             {
                 isLoggedIn && (
-                    <span>
-                        <span className='mr-3'>
-                        <Image
-                            className="user-image pointer"
-                            src={userData["image"]}
-                            roundedCircle
-                            />
-                        </span>
-                        
-                        { userData['name']}
+                    <span className='route-link'>
+                        <Link to="/user-profile">
+                            <span className='mr-3'>
+                                <Image
+                                    className="user-image pointer"
+                                    src={userData["image"]}
+                                    roundedCircle
+                                />
+                            </span>
+
+                            {userData['name']}
+                        </Link>
                         <span className='ml-3'>
                             <GoogleLogout
                                 clientId={config.clientId}
                                 buttonText="Login"
                                 onLogoutSuccess={logout}
                                 render={(renderProps) => (
-                                    <FaSignOutAlt
-                                        onClick={renderProps.onClick} />
-
+                                    <span>Logout <FaSignOutAlt
+                                        onClick={renderProps.onClick} /></span>
                                 )}
                             />
                         </span>
