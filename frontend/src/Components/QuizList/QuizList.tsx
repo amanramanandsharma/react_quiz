@@ -43,7 +43,9 @@ function QuizList(props) {
                 setLoading(false);
             })
             .catch(function (error) {
-                alert("API Error - Quiz List");
+                setLoading(false);
+                alert('API Error - Quiz List Component - /quiz/getQuizList');
+                console.log(error);
             });
     }
 

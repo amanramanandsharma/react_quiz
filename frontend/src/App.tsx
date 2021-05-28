@@ -41,8 +41,9 @@ function App() {
         setLoading(false);
       })
       .catch(function (error) {
-        alert("API Error - Latest Quiz");
         setError(true);
+        alert('API Error - App Component - /quiz/getLatestQuiz');
+        console.log(error);
       });
   }
 

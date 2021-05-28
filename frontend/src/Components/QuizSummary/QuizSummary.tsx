@@ -35,7 +35,8 @@ function QuizSummary(props: any) {
             setScoreSubmit(true);
         })
         .catch(function (error) {
-            console.log('API Error - Submit Score');
+            alert('API Error - Quiz Summary Component - /quiz/submitScore');
+            console.log(error);
         });
     }
 

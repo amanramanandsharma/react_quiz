@@ -62,7 +62,8 @@ function EachQuestion(props) {
                 setLoading(false);
             })
             .catch(function (error) {
-                alert('API Error - Quiz List');
+                alert('API Error - Each Question Component - /quiz/getQuizQuestions');
+                console.log(error);
             });
     }
 
