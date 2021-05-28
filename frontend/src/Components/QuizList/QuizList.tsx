@@ -3,7 +3,11 @@ import './QuizList.scss';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.scss';
+import SwiperCore, { EffectCube,Pagination, Autoplay } from 'swiper/core';
+import "swiper/swiper.min.css";
+import "swiper/components/effect-cube/effect-cube.min.css"
+import "swiper/components/pagination/pagination.min.css"
+import "swiper/components/effect-flip/effect-flip.min.css"
 
 // Axios Import
 import axiosInstance from "../../Core/Axios";
@@ -17,6 +21,9 @@ import Button from 'react-bootstrap/Button'
 
 // Icons Imports
 import { FaStar } from "react-icons/fa";
+
+// install Swiper modules
+SwiperCore.use([EffectCube,Pagination, Autoplay]);
 
 
 function QuizList(props) {
@@ -36,7 +43,7 @@ function QuizList(props) {
                 setLoading(false);
             })
             .catch(function (error) {
-                console.log("API Error - Quiz List");
+                alert("API Error - Quiz List");
             });
     }
 
@@ -52,8 +59,20 @@ function QuizList(props) {
                         <Swiper
                             spaceBetween={50}
                             slidesPerView={1}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}>
+                            // onSlideChange={() => console.log('slide change')}
+                            onSwiper={(swiper) => console.log(swiper)}
+                            loop={true}
+                            effect={'cube'} grabCursor={true} cubeEffect={{
+                                "shadow": true,
+                                "slideShadows": true,
+                                "shadowOffset": 20,
+                                "shadowScale": 0.94
+                              }}
+                              autoplay={{
+                                "delay": 2500,
+                                "disableOnInteraction": true
+                              }} 
+                              className="mySwiper">
                             {
                                 quizData.map((element, index) => {
                                     return (

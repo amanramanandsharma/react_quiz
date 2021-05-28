@@ -68,8 +68,7 @@ function GoogleOauth() {
                         cookiePolicy={'single_host_origin'}
                         isSignedIn={true}
                         render={(renderProps) => (
-                            <span><FaGoogle
-                            onClick={renderProps.onClick} /> Login</span>
+                            <span onClick={renderProps.onClick}><FaGoogle/> Login</span>
 
                         )}
                     />

@@ -39,6 +39,7 @@ function EachQuestion(props) {
     const [inputValue, setInputValue] = useState('');
     const [questionsData, setQuestionsData] = useState([]);
     const [finished, setFinished] = useState(false);
+    const [disableAllBtns, setDisableAllBtns] = useState(false);
 
     useEffect(() => {
         getQuizQuestions(props.quizId);
@@ -47,6 +48,7 @@ function EachQuestion(props) {
     // Check If the User has completed his Quiz
     useEffect(() => {
         if (questionsData.length && !questionsData.some(e => e.is_completed === false)) {
+            setDisableAllBtns(true);
             setFinished(true);
             props.finishQuiz(questionsData);
         }
@@ -67,6 +69,7 @@ function EachQuestion(props) {
 
 
     const handleQuestionChange = (moveToNextSlide: boolean, completed: boolean = false) => {
+        setCorrectAnswer(false);
         const previousIndex = index;
         let newIndex = moveToNextSlide === true ? index + 1 : index - 1;
 
@@ -102,7 +105,9 @@ function EachQuestion(props) {
         if (!correctAnswer) {
             if (levenshteinEditDistance(input, questionsData[index]['answer'], true) < 3) {
                 setCorrectAnswer(true);
+                setDisableAllBtns(true);
                 setTimeout(() => {
+                    setDisableAllBtns(false);
                     setInputValue('');
                     handleQuestionChange(true, true);
                     setCorrectAnswer(false);
@@ -131,7 +136,7 @@ function EachQuestion(props) {
                                             <Col>
                                                 <div>
                                                     <InputGroup size='sm'>
-                                                        <FormControl disabled={questionsData[index].is_completed} value={inputValue} onChange={event => handleInputChange(event.target.value)} aria-describedby='inputGroup-sizing-sm' />
+                                                        <FormControl disabled={questionsData[index].is_completed || disableAllBtns } value={inputValue} onChange={event => handleInputChange(event.target.value)} aria-describedby='inputGroup-sizing-sm' />
                                                     </InputGroup>
                                                 </div>
                                                 {/* <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span> */}
@@ -139,13 +144,18 @@ function EachQuestion(props) {
                                         </Row>
                                         <Row className='mt-2'>
                                             <Col>
-                                                <Button variant='primary' disabled={index === 0} onClick={() => { handleQuestionChange(false) }} block><FaAngleLeft /></Button>
+                                                <Button variant='primary' disabled={index === 0 || disableAllBtns} onClick={() => { handleQuestionChange(false) }} block><FaAngleLeft /></Button>
                                             </Col>
+                                            {
+                                                index === questionsData.length - 1 ? (
+                                                    <Col>
+                                                        <Button variant='danger' disabled={index === 0 || disableAllBtns } onClick={() => { finishQuiz(false) }} block>Give up</Button>
+                                                    </Col>
+                                                ) : null
+                                            }
+                                           
                                             <Col>
-                                                <Button variant='danger' disabled={index === 0} onClick={() => { finishQuiz(false) }} block>Give up</Button>
-                                            </Col>
-                                            <Col>
-                                                <Button variant='primary' disabled={index === questionsData.length - 1} onClick={() => { handleQuestionChange(true) }} block><FaAngleRight /></Button>
+                                                <Button variant='primary' disabled={index === questionsData.length - 1 || disableAllBtns} onClick={() => { handleQuestionChange(true) }} block><FaAngleRight /></Button>
                                             </Col>
                                         </Row>
                                     </Card.Body>

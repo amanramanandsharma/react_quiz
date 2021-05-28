@@ -41,7 +41,7 @@ function App() {
         setLoading(false);
       })
       .catch(function (error) {
-        console.log("API Error - Latest Quiz");
+        alert("API Error - Latest Quiz");
         setError(true);
       });
   }
