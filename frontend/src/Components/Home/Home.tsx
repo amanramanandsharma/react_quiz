@@ -33,7 +33,7 @@ function Home() {
 
     const getLatestQuiz = () => {
         axiosInstance
-            .get('/quiz/getLatestQuiz')
+            .get('/home/getLatestQuiz')
             .then(function (response) {
                 setlatestQuiz(response.data.data)
                 setSelectedQuizId(response.data.data.identifier);

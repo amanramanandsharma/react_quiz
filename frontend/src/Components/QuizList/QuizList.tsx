@@ -37,7 +37,7 @@ function QuizList(props) {
 
     const getQuizList = () => {
         axiosInstance
-            .get("/quiz/getQuizList")
+            .get("/home/getQuizList")
             .then(function (response) {
                 setQuizData([...response.data.data]);
                 setLoading(false);
@@ -63,7 +63,7 @@ function QuizList(props) {
                             slidesPerView={1}
                             // onSlideChange={() => console.log('slide change')}
                             onSwiper={(swiper) => console.log(swiper)}
-                            loop={true}
+                            loop={false}
                             effect={'cube'} grabCursor={true} cubeEffect={{
                                 "shadow": true,
                                 "slideShadows": true,

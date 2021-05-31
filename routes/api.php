@@ -16,15 +16,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('socialLogin', 'AuthController@socialLogin');
 
+
 Route::get('data-generator/populateQuizAndQuestions', 'DataGeneratorController@populateQuizAndQuestions');
 
 Route::group(['middleware' => ['auth:api']], function(){
 
+    
+    // ======================== H O M E =================================================================
+        Route::get('home/getLatestQuiz', 'HomeController@getLatestQuiz');
+        Route::get('home/getQuizList', 'HomeController@getQuizList');
+        Route::get('home/getTopScorers', 'HomeController@getTopScorers');
+
     // ======================== Q U I Z =================================================================
-        Route::get('quiz/getLatestQuiz', 'QuizController@getLatestQuiz');
-        Route::get('quiz/getQuizList', 'QuizController@getQuizList');
         Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
         Route::post('quiz/submitScore', 'QuizController@submitScore');
         Route::get('quiz/getHighScoreForQuiz', 'QuizController@getHighScoreForQuiz');
+        
+    // ======================== U S E R -  P R O F I L E =================================================================
+        Route::get('user-profile/getUserInformation', 'UserProfileController@getUserInformation');
+        
         
 });

@@ -26,7 +26,8 @@ import { FaStar } from "react-icons/fa";
 SwiperCore.use([EffectCube, Pagination, Autoplay]);
 
 function UserProfile() {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [userInformation, setUserInformation] = useState({});
     const [statsData, setStatsData] = useState([
         {
             id: 1,
@@ -52,19 +53,19 @@ function UserProfile() {
     ]);
 
     useEffect(() => {
-        // getQuizList();
+        getUserInformation();
     }, []);
 
-    const getQuizList = () => {
+    const getUserInformation = () => {
         axiosInstance
-            .get("/quiz/getQuizList")
+            .get("/user-profile/getUserInformation")
             .then(function (response) {
-                // setQuizData([...response.data.data]);
+                setUserInformation(response.data.data);
                 setLoading(false);
             })
             .catch(function (error) {
                 setLoading(false);
-                alert('API Error - Quiz List Component - /quiz/getQuizList');
+                alert('API Error - User Profile Component - /user-profile/getUserInformation');
                 console.log(error);
             });
     }
@@ -82,9 +83,9 @@ function UserProfile() {
                                             <Col className='div-right-border' xs={6}>
                                                 <Row>
                                                     <Col>
-                                                        <h1>#123</h1>
+                                                        <h1># {userInformation['rank'] } </h1>
                                                         <div>
-                                                            <span className='text-muted'><strong>Ranking</strong></span>
+                                                            <span className='text-muted'><strong>Rank</strong></span>
                                                         </div>
                                                     </Col>
                                                 </Row>
@@ -94,12 +95,12 @@ function UserProfile() {
                                                     <Col>
                                                         <Image
                                                             className="user-image pointer"
-                                                            src='https://lh3.googleusercontent.com/a-/AOh14GjOHJlWdrScpQc73kKvzz2xOPD4L0yW0XBVBme4qA=s96-c' />
+                                                            src={userInformation['image'] } />
                                                     </Col>
                                                 </Row>
                                                 <Row>
                                                     <Col>
-                                                        <strong>Aman Sharma</strong>
+                                                        <strong>{userInformation['name'] }</strong>
                                                         <hr></hr>
                                                     </Col>
                                                 </Row>
@@ -110,7 +111,7 @@ function UserProfile() {
                                                 </Row>
                                                 <Row>
                                                     <Col>
-                                                        <strong>19th April 2012</strong>
+                                                        <strong>{userInformation['joined_on'] }</strong>
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -136,7 +137,7 @@ function UserProfile() {
                                                     slidesPerView={1}
                                                     // onSlideChange={() => console.log('slide change')}
                                                     onSwiper={(swiper) => console.log(swiper)}
-                                                    loop={true}
+                                                    loop={false}
                                                     effect={'cube'} grabCursor={true}
                                                     autoplay={{
                                                         "delay": 2500,
@@ -144,7 +145,7 @@ function UserProfile() {
                                                     }}
                                                     className="mySwiper">
                                                     {
-                                                        statsData.map((element, index) => {
+                                                        userInformation['quiz_stats'].map((element, index) => {
                                                             return (
                                                                 <SwiperSlide key={element.id}>
                                                                     <Row className='fixed-height-div'>

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('identifier');
             $table->string('name');
             $table->string('email')->unique();
+            $table->float('score')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('image')->nullable();
             $table->bigInteger('contact')->nullable();

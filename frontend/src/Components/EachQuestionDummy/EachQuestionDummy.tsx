@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './EachQuestionDummy.scss';
 
 import { useStopwatch } from 'react-timer-hook';
 
@@ -20,7 +21,7 @@ import { levenshteinEditDistance } from 'levenshtein-edit-distance';
 // Axios Import
 import axiosInstance from '../../Core/Axios';
 
-function EachQuestion(props) {
+function EachQuestionDummy(props) {
     const {
         seconds,
         minutes,
@@ -50,21 +51,38 @@ function EachQuestion(props) {
         if (questionsData.length && !questionsData.some(e => e.is_completed === false)) {
             setDisableAllBtns(true);
             setFinished(true);
-            props.finishQuiz(questionsData);
+            // props.finishQuiz(questionsData);
         }
     }, [questionsData]);
 
     const getQuizQuestions = (quizId) => {
-        axiosInstance
-            .post('/quiz/getQuizQuestions', { quiz_id: props.quizId })
-            .then(function (response) {
-                setQuestionsData([...response.data.data]);
-                setLoading(false);
-            })
-            .catch(function (error) {
-                alert('API Error - Each Question Component - /quiz/getQuizQuestions');
-                console.log(error);
-            });
+        setQuestionsData([
+            {
+              "identifier": "GZ-TBQQ2105251553291",
+              "answer": "Hera Pheri",
+              "image": "https://www.filmcompanion.in/wp-content/uploads/2020/03/film-comapnion-hera-pheri-inline-image-1.jpg",
+              "is_completed": false,
+              "time": 0,
+              "title": "Q1"
+            },
+            {
+              "identifier": "GZ-TBQQ2105251553292",
+              "answer": "Judwa 2",
+              "image": "https://cdn.bollywoodmdb.com/movies/largethumb/2020/coolie-no-1/coolie-no-1-37.jpg",
+              "is_completed": false,
+              "time": 0,
+              "title": "Q2"
+            },
+            {
+              "identifier": "GZ-TBQQ2105251553293",
+              "answer": "Sooryavanshi",
+              "image": "https://cdn.bollywoodmdb.com/movies/largethumb/2020/sooryavanshi/sooryavanshi-7.jpg",
+              "is_completed": false,
+              "time": 0,
+              "title": "Q3"
+            }
+          ]);
+        setLoading(false);
     }
 
 
@@ -107,7 +125,6 @@ function EachQuestion(props) {
             if (levenshteinEditDistance(input, questionsData[index]['answer'], true) < 3) {
                 setCorrectAnswer(true);
                 setDisableAllBtns(true);
-                setInputValue('');
                 setTimeout(() => {
                     setDisableAllBtns(false);
                     setInputValue('');
@@ -119,7 +136,7 @@ function EachQuestion(props) {
     }
 
     const finishQuiz = (type: boolean) => {
-        props.finishQuiz(questionsData);
+        // props.finishQuiz(questionsData);
     }
 
 
@@ -132,7 +149,7 @@ function EachQuestion(props) {
                         <Row className='justify-content-md-center mt-3'>
                             <Col xs={12} sm={12} md={6}>
                                 <Card>
-                                    <Card.Img className='img-fluid img-thumbnail question-card ' variant='top' src={questionsData[index].image} />
+                                    <Card.Img className='img-thumbnail question-card' variant='top' src={questionsData[index].image} />
                                     <Card.Body>
                                         <Row>
                                             <Col>
@@ -190,4 +207,5 @@ function EachQuestion(props) {
     )
 }
 
-export default EachQuestion
+
+export default EachQuestionDummy
