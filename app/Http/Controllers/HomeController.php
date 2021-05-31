@@ -62,7 +62,7 @@ class HomeController extends Controller {
         ORDER BY score DESC ) 
         FROM users )
         ) AS rank
-        FROM users LIMIT 10');
+        FROM users ORDER BY rank LIMIT 5');
         
         return response()->json(['data' => $user_score], 200);
     }

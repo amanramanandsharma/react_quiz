@@ -39,7 +39,7 @@ class UserProfileController extends Controller {
 
         $collect = collect([]);
         $collect->put('id', 1);
-        $collect->put('title', 'Quizzes Completed');
+        $collect->put('title', 'Quizzes Completion');
         $collect->put('value', ceil(($total_completed/$total_quizzes)*100).'%');
         array_push($quiz_stats,$collect);
 
@@ -52,7 +52,13 @@ class UserProfileController extends Controller {
             $collect = collect([]);
             $collect->put('id', 2);
             $collect->put('title', 'Correct Answers');
-            $collect->put('value', ceil(($correct_answers/$attempted_questions)*100).'%');
+
+            if($attempted_questions){
+                $collect->put('value', ceil(($correct_answers/$attempted_questions)*100).'%');
+            }else{
+                $collect->put('value', '0%');
+            }
+
             array_push($quiz_stats,$collect);
 
     //Average Quiz Time

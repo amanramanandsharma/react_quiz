@@ -22,6 +22,9 @@ import Button from 'react-bootstrap/Button'
 // Icons Imports
 import { FaStar } from "react-icons/fa";
 
+// Router Imports
+import { Link } from "react-router-dom";
+
 // install Swiper modules
 SwiperCore.use([EffectCube,Pagination, Autoplay]);
 
@@ -117,7 +120,7 @@ function QuizList(props) {
                                                     }
                                                     {
                                                         element.is_completed  ?  (
-                                                            <Button variant="success" block>See Details</Button>
+                                                            <Link to={ '/quiz-summary/'+ element.identifier} ><Button variant="success" block>See Details</Button></Link>
                                                         ) : null
                                                     }
                                                 </Card.Footer>

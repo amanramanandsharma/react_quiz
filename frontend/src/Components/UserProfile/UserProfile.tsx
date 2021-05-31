@@ -28,29 +28,6 @@ SwiperCore.use([EffectCube, Pagination, Autoplay]);
 function UserProfile() {
     const [loading, setLoading] = useState(true);
     const [userInformation, setUserInformation] = useState({});
-    const [statsData, setStatsData] = useState([
-        {
-            id: 1,
-            title: 'Quizzes Completed',
-            value: '10%'
-        },
-        {
-            id: 2,
-            title: 'Correct Answers',
-            value: '52%'
-        },
-        {
-            id: 3,
-            title: 'Average Quiz Time',
-            value: '35s'
-        },
-        {
-            id: 4,
-            title: 'Average Answer Time',
-            value: '3s'
-        },
-
-    ]);
 
     useEffect(() => {
         getUserInformation();

@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth:api']], function(){
         Route::post('quiz/getQuizQuestions', 'QuizController@getQuizQuestions');
         Route::post('quiz/submitScore', 'QuizController@submitScore');
         Route::get('quiz/getHighScoreForQuiz', 'QuizController@getHighScoreForQuiz');
+        Route::post('quiz/getQuizAnsweredDetails', 'QuizController@getQuizAnsweredDetails');
         
     // ======================== U S E R -  P R O F I L E =================================================================
         Route::get('user-profile/getUserInformation', 'UserProfileController@getUserInformation');

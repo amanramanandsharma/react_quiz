@@ -37,7 +37,6 @@ function HighScores() {
             .then(function (response) {
                 setScoreData([...response.data.data]);
                 setLoading(false);
-                console.log(response.data.data);
             })
             .catch(function (error) {
                 setLoading(false);

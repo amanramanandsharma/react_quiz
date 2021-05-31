@@ -20,7 +20,7 @@ class QuizController extends Controller{
     public function getQuizQuestions(Request $request){
 
         $quiz_id = DB::table('tbl_quiz')->where('identifier',$request->quiz_id)->value('id');
-        $data = DB::table('tbl_quiz_questions')->select('identifier','answer','image','is_completed','time','title')->where('quiz_id',$quiz_id)->get();
+        $data = DB::table('tbl_quiz_questions')->select('identifier','answer','image','is_completed','time','title')->where('quiz_id',$quiz_id)->inRandomOrder()->get();
 
         foreach ($data as $each_question) {
             $each_question->is_completed = $each_question->is_completed === 0 ? false : true;
@@ -84,21 +84,22 @@ class QuizController extends Controller{
         return response()->json(['data' => true], 200);
     }
   
-    public function getHighScoreForQuiz(Request $request){
+    public function getQuizAnsweredDetails(Request $request){
 
-        // $users_completed_all_quiz = [];
+        $quiz_id = DB::table('tbl_quiz')->where('identifier',$request->quiz_id)->value('id');
+        $questions_ids = DB::table('tbl_quiz_questions')->select('id','title','image','answer')->where('quiz_id',$quiz_id)->get();
 
-        // $quiz_scores = DB::table('tbl_quiz')->where('deleted_at',null)->count();
+        foreach ($questions_ids as $each_question) {
+            $each_response = DB::table('tbl_quiz_responses')->where('quiz_question_id',$each_question->id)->where('created_by',Auth::user()->id)->first();
+            $each_question->time = $each_response->time;
+            $each_question->is_completed = $each_response->is_completed;
+        }
 
-        // foreach ($quiz_scores as $each_top_score) {
-        //     $user_count = DB::table('tbl_quiz_summary')->groupBy('user_id')->count();
-        //     if($user_count === $quiz_scores){
-        //         array_push($users_completed_all_quiz, );
-        //     }
-        // }
+        $quiz_name = DB::table('tbl_quiz')->where('identifier',$request->quiz_id)->value('title');
+        $stats = DB::table('tbl_quiz_summary')->where('quiz_id',$quiz_id)->where('user_id',Auth::user()->id)->select('time',DB::raw('DATE_FORMAT(created_at, "%D %b %Y") as completed_at'))->first();
+        $stats->name = $quiz_name;
 
-
-        return response()->json(['data' => 'true'], 200);
+        return response()->json(['data' => $questions_ids,'stats' => $stats], 200);
     }
  
 }

@@ -16,6 +16,9 @@ import QuizList from '../../Components/QuizList/QuizList';
 import HighScores from '../../Components/HighScores/HighScores';
 import UserProfile from '../../Components/UserProfile/UserProfile';
 
+// Router Imports
+import { Link } from "react-router-dom";
+
 // Axios Import
 import axiosInstance from '../../Core/Axios';
 
@@ -55,7 +58,7 @@ function Home() {
         <div>
               {
                     error && (
-                        <div className='mt-1'>
+                        <div className='mt-2'>
                             <Alert variant='danger'>Please Login To Continue</Alert>
                         </div>
                     )
@@ -63,6 +66,9 @@ function Home() {
                 {
                     !startQuiz && (
                         <div>
+                        <div className='mt-2 text-center'>
+                            <Link to="/user-profile"><Button variant="dark" block>My Statistics</Button></Link>
+                        </div>
                             <Row className='mt-2'>
                                 <Col>
                                     <Card
