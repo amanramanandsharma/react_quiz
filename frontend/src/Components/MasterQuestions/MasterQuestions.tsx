@@ -7,7 +7,14 @@ import { useStopwatch } from 'react-timer-hook';
 import EachQuestion from '../EachQuestion/EachQuestion';
 import  QuizSummary from '../QuizSummary/QuizSummary';
 
-function MasterQuestions(props: any) {
+
+// Router Dom Imports
+import { useHistory, useParams } from "react-router-dom";
+
+function MasterQuestions() {
+
+    let { id } = useParams();
+    let history = useHistory();
 
     const {
         seconds,
@@ -43,7 +50,7 @@ function MasterQuestions(props: any) {
             {
                 !loading && !finishedQuiz && (
                 <div>
-                    <EachQuestion finishQuiz={setQuizSummaryData} quizId={props.quizId}></EachQuestion>
+                    <EachQuestion finishQuiz={setQuizSummaryData} quizId={id}></EachQuestion>
                 </div>
                                     
                 )
@@ -51,7 +58,7 @@ function MasterQuestions(props: any) {
 
             {
                 finishedQuiz && (
-                     <QuizSummary quizId={props.quizId} finalTime={finishedQuiTime} data={finishedQuizData}></QuizSummary>                    
+                     <QuizSummary quizId={id} finalTime={finishedQuiTime} data={finishedQuizData}></QuizSummary>                    
                 )
             }
         </>

@@ -7,7 +7,6 @@ import SwiperCore, { EffectCube,Pagination, Autoplay } from 'swiper/core';
 import "swiper/swiper.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css"
 import "swiper/components/pagination/pagination.min.css"
-import "swiper/components/effect-flip/effect-flip.min.css"
 
 // Axios Import
 import axiosInstance from "../../Core/Axios";
@@ -52,9 +51,6 @@ function QuizList(props) {
             });
     }
 
-    const startQuiz = (quizId : string) => {
-        props.startQuiz(quizId);
-    }
 
     return (
         <>
@@ -89,7 +85,7 @@ function QuizList(props) {
                                                         <Col>
                                                             <Row>
                                                                 <Col>
-                                                                <span>Top Talent</span><br></br>
+                                                                <span>Top Score</span><br></br>
                                                                     <strong>{element.name}</strong> <br></br>
                                                                         <div className='mt-2'>
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-trophy-fill" viewBox="0 0 16 16">
@@ -115,7 +111,7 @@ function QuizList(props) {
                                                 <Card.Footer>
                                                     {
                                                         !element.is_completed ? (
-                                                            <Button variant="primary" onClick={() => { startQuiz(element.identifier) }} block>Start</Button>
+                                                            <Link to={ '/quiz/'+ element.identifier} ><Button variant="primary" block>Start</Button></Link>
                                                         ) : null
                                                     }
                                                     {

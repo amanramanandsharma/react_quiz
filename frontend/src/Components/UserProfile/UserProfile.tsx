@@ -17,10 +17,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card'
 import Image from "react-bootstrap/Image";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
-// Icons Imports
-import { FaStar } from "react-icons/fa";
+// Icons Import
+import { FaCheckSquare } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
+
+// Router Imports
+import { Link } from "react-router-dom";
 
 // install Swiper modules
 SwiperCore.use([EffectCube, Pagination, Autoplay]);
@@ -52,6 +56,11 @@ function UserProfile() {
             {
                 !loading && (
                     <div className='mt-2 mb-3'>
+                        <Row className='justify-content-md-center mt-3 mb-3 text-center'>
+                            <Col xs={12} sm={12} md={6}>
+                                <Link to='/'><Button variant="info" block> <FaHome /> <span className='icon-text'>Home</span></Button></Link>
+                            </Col>
+                        </Row>
                         <Row>
                             <Col>
                                 <Card>

@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 // Bootstrap Imports
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Alert from 'react-bootstrap/Alert'
+import Spinner from 'react-bootstrap/Spinner'
 
-import Header from '../../Layouts/Header/Header';
-import Footer from '../../Layouts/Footer/Footer';
-
-import MasterQuestions from '../../Components/MasterQuestions/MasterQuestions';
 import QuizList from '../../Components/QuizList/QuizList';
 import HighScores from '../../Components/HighScores/HighScores';
-import UserProfile from '../../Components/UserProfile/UserProfile';
+import GoogleOauth from '../../Authentication/GoogleOauth';
 
 // Router Imports
 import { Link } from "react-router-dom";
@@ -25,8 +21,6 @@ import axiosInstance from '../../Core/Axios';
 function Home() {
 
     const [latestQuiz, setlatestQuiz] = useState(null);
-    const [selectedQuizId, setSelectedQuizId] = useState(0);
-    const [startQuiz, setStartQuiz] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -39,88 +33,117 @@ function Home() {
             .get('/home/getLatestQuiz')
             .then(function (response) {
                 setlatestQuiz(response.data.data)
-                setSelectedQuizId(response.data.data.identifier);
                 setLoading(false);
             })
             .catch(function (error) {
                 setError(true);
-                alert('API Error - App Component - /quiz/getLatestQuiz');
+                console.log('API Error - App Component - /quiz/getLatestQuiz');
                 console.log(error);
             });
     }
 
-    const setQuizIdAndStart = (quizId) => {
-        setSelectedQuizId(quizId);
-        setStartQuiz(true)
-    }
-
     return (
         <div>
-              {
-                    error && (
-                        <div className='mt-2'>
-                            <Alert variant='danger'>Please Login To Continue</Alert>
-                        </div>
-                    )
-                }
-                {
-                    !startQuiz && (
-                        <div>
+            {
+                error && (
+                    <div className='mt-2'>
+                        <Card
+                            bg='light'
+                            text='dark'
+                            className="mb-2 text-center"
+                        >
+                            <Card.Body>
+                                <div>
+                                    <Row>
+                                        <Col>
+                                            <h1>GeekZiuq</h1>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <strong><small>Bollywood Quiz Site</small></strong>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </Card.Body>
+                        </Card>
+
+                        <Card
+                            bg='light'
+                            text='dark'
+                            className="mb-2"
+                        >
+                            <Card.Body>
+                                <div>
+                                    <Row>
+                                        <Col>
+                                            1. Login
+                                                </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            2. Select Quiz
+                                                </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            3. Name the movie from the images
+                                                </Col>
+                                    </Row>
+                                    <Row className='mt-3'>
+                                        <Col>
+                                            <GoogleOauth></GoogleOauth>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </Card.Body>
+                        </Card>
+
+                    </div>
+                )
+            }
+            {
+                !loading && (
+                    <div>
                         <div className='mt-2 text-center'>
-                            <Link to="/user-profile"><Button variant="dark" block>My Statistics</Button></Link>
+                            <Link to="/user-profile"><Button variant="info" block>Statistics Page</Button></Link>
                         </div>
-                            <Row className='mt-2'>
-                                <Col>
-                                    <Card
-                                        bg='secondary'
-                                        text='white'
-                                        className="mb-2"
-                                    >
-                                        <Card.Body>
-                                            <Card.Title>Weekly Quiz</Card.Title>
-                                            {
-                                                !loading && (
-                                                    <div>
-                                                        <Row>
-                                                            <Col>
-                                                                {latestQuiz.title} | {latestQuiz.update_date}
-                                                            </Col>
-                                                        </Row>
-                                                        <Row>
-                                                            <Col>
-                                                                Curated by - {latestQuiz.name}
-                                                                <span className='btn-right'>
-                                                                    <Button variant="light" onClick={() => { setStartQuiz(true) }}>Start !!</Button>
-                                                                </span>
-                                                            </Col>
-                                                        </Row>
-                                                    </div>
-                                                )
-                                            }
+                        <Row className='mt-2'>
+                            <Col>
+                                <Card
+                                    bg='secondary'
+                                    text='white'
+                                    className="mb-2"
+                                >
+                                    <Card.Body>
+                                        <Card.Title>Weekly Quiz</Card.Title>
+                                        <div>
+                                            <Row>
+                                                <Col>
+                                                    {latestQuiz.title} | {latestQuiz.update_date}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    Curated by - {latestQuiz.name}
+                                                    <span className='btn-right'>
+                                                        <Link to={'/quiz/' + latestQuiz.identifier} ><Button variant="light" block>Start</Button></Link>
+                                                    </span>
+                                                </Col>
+                                            </Row>
+                                        </div>
 
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={12} sm={12} md={6}><QuizList startQuiz={setQuizIdAndStart}></QuizList></Col>
-                                <Col xs={12} sm={12} md={6}><HighScores /></Col>
-                            </Row>
-                        </div>
-                    )
-                }
-
-                {
-                    startQuiz && (
-                        <div>
-                            <Row>
-                                <Col>
-                                    <MasterQuestions quizId={selectedQuizId} />
-                                </Col>
-                            </Row>
-                        </div>
-                    )
-                }
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12} sm={12} md={6}><QuizList /></Col>
+                            <Col xs={12} sm={12} md={6}><HighScores /></Col>
+                        </Row>
+                    </div>
+                )
+            }
         </div>
     )
 }

@@ -11,13 +11,18 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Image from "react-bootstrap/Image";
 import Alert from 'react-bootstrap/Alert';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 // Icons Import
 import { FaCheckSquare } from 'react-icons/fa';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
 
 // Axios Import
 import axiosInstance from '../../Core/Axios';
+
+// Router Imports
+import { Link } from "react-router-dom";
 
 
 function QuizDetails() {
@@ -26,8 +31,8 @@ function QuizDetails() {
     let history = useHistory();
 
     const [loading, setLoading] = useState(true);
-    const [questionData,setQuestionData] = useState([]);
-    const [statsData,setStatsData] = useState({});
+    const [questionData, setQuestionData] = useState([]);
+    const [statsData, setStatsData] = useState({});
 
     useEffect(() => {
         getQuizAnsweredDetails();
@@ -57,6 +62,11 @@ function QuizDetails() {
                     <div>
                         <Row className='justify-content-md-center mt-3'>
                             <Col xs={12} sm={12} md={6}>
+                                <Row className='justify-content-md-center mt-2 mb-3 text-center'>
+                                    <Col xs={12} sm={12} md={6}>
+                                        <Link to='/'><Button variant="info" block> <FaHome /> <span className='icon-text'>Home</span></Button></Link>
+                                    </Col>
+                                </Row>
                                 <Card
                                     bg='light'
                                     text='dark'
@@ -70,23 +80,29 @@ function QuizDetails() {
                                                 <Alert variant='success'><strong>Completed On: <strong>{statsData['completed_at']}</strong></strong></Alert>
                                             </Col>
                                         </Row>
-                                        {questionData.map((element, index) => (
-                                            <Row key={index} className='mt-3'>
-                                                <Col>
-
-                                                    <Image
-                                                        className="image-span pointer img-thumbnail"
-                                                        src={element["image"]}
-                                                    />
-                                                    <span className='ml-2'>
-                                                        {element.answer}
-                                                    </span>
-                                                    <span className='ml-2'>
-                                                        {element.is_completed ? <FaCheckSquare /> : <FaExclamationTriangle />}
-                                                    </span>
-                                                </Col>
-                                            </Row>
-                                        ))}
+                                        <Row>
+                                            <Col>
+                                                <Table striped bordered hover>
+                                                    <tbody>
+                                                        {questionData.map((element, index) => (
+                                                            <tr key={element.id}>
+                                                                <td>{element.answer}</td>
+                                                                <td><strong>{element.time}s</strong></td>
+                                                                <td>
+                                                                    {element.name}
+                                                                    <span className='ml-4'>
+                                                                        <Image
+                                                                            className="user-image pointer"
+                                                                            src={element["image"]}
+                                                                        />
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
+                                            </Col>
+                                        </Row>
                                     </Card.Body>
                                 </Card>
                             </Col>

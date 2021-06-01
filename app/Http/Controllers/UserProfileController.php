@@ -39,7 +39,7 @@ class UserProfileController extends Controller {
 
         $collect = collect([]);
         $collect->put('id', 1);
-        $collect->put('title', 'Quizzes Completion');
+        $collect->put('title', 'Quiz Completion');
         $collect->put('value', ceil(($total_completed/$total_quizzes)*100).'%');
         array_push($quiz_stats,$collect);
 

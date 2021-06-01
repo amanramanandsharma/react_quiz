@@ -86,7 +86,7 @@ function EachQuestion(props) {
 
         if (completed) {
             const updateQData = questionsData;
-            time = time - 2 <= 0 ? 1 : time
+            time = time <= 0 ? 1 : time
             updateQData[previousIndex]['time'] += time;
             updateQData[previousIndex]['is_completed'] = true;
             setQuestionsData([...updateQData]);
@@ -113,7 +113,7 @@ function EachQuestion(props) {
                     setInputValue('');
                     handleQuestionChange(true, true);
                     setCorrectAnswer(false);
-                }, 3000);
+                }, 1000);
             }
         }
     }

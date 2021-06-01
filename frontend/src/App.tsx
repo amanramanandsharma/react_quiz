@@ -9,6 +9,7 @@ import Header from './Layouts/Header/Header';
 import Home from './Components/Home/Home';
 import UserProfile from './Components/UserProfile/UserProfile';
 import QuizDetails from './Components/QuizDetails/QuizDetails';
+import MasterQuestions from './Components/MasterQuestions/MasterQuestions';
 
 // Router DOM Imports
 import {
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path='/user-profile' component={UserProfile} />
             <Route path='/quiz-summary/:id' component={QuizDetails} />
+            <Route path='/quiz/:id' component={MasterQuestions} />
           </Switch>
         </Container>
       </Router>
